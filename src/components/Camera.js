@@ -48,6 +48,10 @@ const Camera = () => {
         <>
             <video ref={camRef} onPlay={playHandle} style={{ position: 'absolute' }} />
             <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 999 }} />
+            <button style={{ position: 'absolute', top: '410px'}}>Some function</button>
+            <div style={{ position: 'absolute', background: 'rgba(255, 255, 255, .4)', width: '720px', 'text-align': 'center', top: '440px'}}>
+                Name goes here
+            </div>
         </>
     )
 }
