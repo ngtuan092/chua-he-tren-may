@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as faceapi from 'face-api.js'
 
@@ -6,6 +6,8 @@ const Camera = () => {
     const camRef = useRef(null);
     const canvasRef = useRef(null);
     const imageRef = useRef(null);
+    const resultRef = useRef(null);
+    const [name, setName] = useState("waiting")
     useEffect(() => {
         Promise.all([
             faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
@@ -13,8 +15,7 @@ const Camera = () => {
             .then(() => {
                 navigator.mediaDevices.getUserMedia({
                     video: {
-                        width: 720,
-                        height: 405
+                        width: 720
                     }
                 }).then((stream) => {
                     let video = camRef.current
@@ -26,6 +27,7 @@ const Camera = () => {
                 }
                 )
             })
+        clickHandle()
         return () => {
         }
     }, [])
@@ -40,28 +42,42 @@ const Camera = () => {
             const resizedDetections = faceapi.resizeResults(detections, displaySize)
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
             faceapi.draw.drawDetections(canvas, resizedDetections)
-            if (detections.length !== 0) {
-                const video = camRef.current
-                const canvas = imageRef.current
-                var ctx = canvas.getContext('2d')
-                const width = video.width
-                const height = video.height
-                canvas.width = width
-                canvas.height = height
-                ctx.drawImage(video, 0, 0, width, height)
-                const image_base64 = canvas.toDataURL()
-                await axios.post('http://localhost:3001/image', {image_base64}).then((res) => {
-                    console.log(res.data)
-                })
-            }
             // const name = await axios.post()
         }, 100)
+    }
+    const clickHandle = (e) => {
+        // Cancel request
+
+        const fetch = setInterval(async () => {
+            const video = camRef.current
+            const canvas = imageRef.current
+            var ctx = canvas?.getContext('2d')
+            const width = video.width
+            const height = video.height
+            canvas.width = width
+            canvas.height = height
+            ctx.drawImage(video, 0, 0, width, height)
+            const image_base64 = canvas.toDataURL()
+
+            const res = await axios.post('http://localhost:3001/image', {
+                image_base64
+            });
+            setName(res.data?.result?.name)
+
+        }, 100)
+        setTimeout(() => {
+            clearInterval(fetch)
+        }, 5000)
     }
     return (
         <>
             <video ref={camRef} onPlay={playHandle} style={{ position: 'absolute' }} />
-            <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 999 }} />
+            <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 1 }} />
             <canvas ref={imageRef} style={{ display: "none" }} />
+            <button style={{ position: 'absolute', top: '410px', zIndex: 2 }} onClick={clickHandle}>Reset</button>
+            <div ref={resultRef} style={{ position: 'absolute', background: 'rgba(255, 255, 255, .4)', width: '720px', textAlign: 'center', top: '440px' }}>
+                {name}
+            </div>
         </>
     )
 }
