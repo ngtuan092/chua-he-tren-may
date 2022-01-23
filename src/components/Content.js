@@ -14,7 +14,7 @@ const Content = () => {
             className="mb-3"
         >
             <Tab eventKey={1} title="Recognition" className='tab-size justify-content-center'>
-                <Camera on={value === '1'} />
+                <Camera />
             </Tab>
             <Tab eventKey={2} title="Register" className='tab-size justify-content-center'>
                 <FaceRegisterForm />
