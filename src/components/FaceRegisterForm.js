@@ -53,7 +53,7 @@ const FaceRegisterFrom = () => {
 
         // let image_base64 = canvasRef.current.toDataURL().replace(/^data:image\/png;base64,/, "");
         let image_base64 = canvasRef.current.toDataURL();
-        axios.post(`http://localhost:3001/image`, { name, image_base64 })
+        axios.post(`http://localhost:3001/upload`, { name, image_base64 })
             .then(res => {
                 console.log(res.status)
             }).catch(e => {
