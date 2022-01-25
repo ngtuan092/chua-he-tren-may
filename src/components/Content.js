@@ -12,6 +12,7 @@ const Content = () => {
             activeKey={value}
             onSelect={(k) => setValue(k)}
             className="mb-3"
+            style={{ justifyContent: 'flex-end', paddingRight: '5%', paddingLeft: '5%' }}
         >
             <Tab eventKey={1} title="Recognition" className='tab-size justify-content-center'>
                 <Camera on={value === '1'} />
