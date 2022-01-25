@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import * as faceapi from 'face-api.js'
+import './Camera.css'
 const Camera = () => {
     const camRef = useRef(null);
     const canvasRef = useRef(null);
@@ -64,9 +65,9 @@ const Camera = () => {
     }
     return (
         <>
-            <video ref={camRef} onPlay={playHandle} style={{ position: 'absolute' }} />
+            <video ref={camRef} onPlay={playHandle} style={{ position: 'relative' }} />
             <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 999 }} />
-            <button style={{ position: 'absolute', zIndex: '10000', top: '410px', borderRadius: '10px', backgroundImage: 'linear-gradient(to right, #16A085 0%, #F4D03F  51%, #16A085  100%)', color: 'white', fontWeight: 'bold', padding: '3px 5px', cursor: 'pointer', border: 'none' }}>Some function</button>
+            <button className="button" style={{ position: 'absolute', zIndex: '10000', top: '400px', borderRadius: '10px', backgroundImage: 'linear-gradient(to right, #16A085 0%, #F4D03F  51%, #16A085  100%)', color: 'white', fontWeight: 'bold', padding: '3px 5px', cursor: 'pointer', border: 'none' }}>Reset</button>
             <div style={{ position: 'absolute', background: 'rgba(255, 255, 255, .4)', width: '720px', textAlign: 'center', top: '440px'}}>
                 Name goes here
             </div>
