@@ -64,7 +64,6 @@ const Camera = () => {
     }
     return (
         <>
-
             <video ref={camRef} onPlay={playHandle} style={{ position: 'absolute' }} />
             <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 999 }} />
             <button style={{ position: 'absolute', zIndex: '10000', top: '410px', borderRadius: '10px', backgroundImage: 'linear-gradient(to right, #16A085 0%, #F4D03F  51%, #16A085  100%)', color: 'white', fontWeight: 'bold', padding: '3px 5px', cursor: 'pointer', border: 'none' }}>Some function</button>
