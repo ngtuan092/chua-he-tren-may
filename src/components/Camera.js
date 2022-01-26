@@ -69,7 +69,7 @@ const Camera = () => {
             <video ref={camRef} onPlay={playHandle} style={{ position: 'absolute' }} />
             <canvas ref={canvasRef} style={{ position: 'absolute', zIndex: 1 }} />
             <canvas ref={imageRef} style={{ display: "none" }} />
-            <button style={{ position: 'absolute', top: '410px', zIndex: 2 }} onClick={clickHandle}>Reset</button>
+            <button className="button" style={{ position: 'absolute', zIndex: '10000', top: '400px', borderRadius: '10px', backgroundImage: 'linear-gradient(to right, #16A085 0%, #F4D03F  51%, #16A085  100%)', color: 'white', fontWeight: 'bold', padding: '3px 5px', cursor: 'pointer', border: 'none' }} onClick={clickHandle}>Reset</button>
             <div ref={resultRef} style={{ position: 'absolute', background: 'rgba(255, 255, 255, .4)', width: '720px', textAlign: 'center', top: '440px' }}>
                 {name}
             </div>
